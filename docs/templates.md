@@ -138,6 +138,39 @@ Then add styles like:
 - Always escape custom user text with `escapeHtml()` if you manually read from
   `cvData` and build HTML.
 - Prefer the shared helpers (`headerHtml`, `sectionsHtml`, `page`) for normal CV
-  sections so import/export JSON behavior stays consistent.
+  sections so Open CV and Save CV data behavior stays consistent.
 - Keep template modules free of editor or storage code; templates should only
   describe preview rendering and declare their editor sidebar style fields.
+
+## Opening a template in the app
+
+The toolbar includes an **Open Template** button for loading a custom template
+file without editing the app source. Template files are JSON and may use the
+`.cvtemplate` or `.json` extension.
+
+A loadable template supports these fields:
+
+```json
+{
+  "id": "compact-card",
+  "name": "Compact Card",
+  "html": "{{header}}{{sections}}",
+  "css": ".template-custom-compact-card .cv-inner { padding: 14mm; }",
+  "styleFields": {
+    "colors": [["page", "Page background"], ["accent", "Accent / rules"], ["body", "Body text"]],
+    "fonts": [["headers", "Headers"], ["paragraphs", "Paragraphs"]]
+  }
+}
+```
+
+The `html` field can include these placeholders:
+
+| Placeholder | Output |
+| --- | --- |
+| `{{header}}` | The standard profile header markup. |
+| `{{sections}}` | The standard CV sections and entries. |
+| `{{fullName}}` | The escaped profile full name. |
+
+When a template is opened, it is added to the template picker for the current
+browser session and selected immediately. Use **Open CV** and **Save CV** for CV
+data files; those replace the previous import/export JSON labels.
